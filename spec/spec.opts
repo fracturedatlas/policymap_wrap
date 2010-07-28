@@ -1,1 +1,4 @@
---color
+--colour
+--format nested
+--loadby mtime
+--backtrace

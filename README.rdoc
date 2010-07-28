@@ -1,17 +1,154 @@
-= policymap_wrap
+= PolicyMap Wrap
 
-Description goes here.
+Ruby wrapper around the PolicyMap API.
 
-== Note on Patches/Pull Requests
+== Notes
  
-* Fork the project.
-* Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
-* Send me a pull request. Bonus points for topic branches.
+PolicyMap APIs are custom designed, so your mileage may vary depending on your API.
+
+== Usage
+
+Before you can perform searches, you must first setup your PolicyMap credentials:
+
+  PolicyMap::Client.set_credentials(<account_id>)
+  
+There are three types of searches: query, boundary and indicator.
+Each search is performed as follows, respectively:
+
+  PolicyMap::Client.query_search(<search_options>)
+  PolicyMap::Client.boundary_search(<search_options>)
+  PolicyMap::Client.indicator_search(<search_options>)
+  
+The search options (required and optional) will vary based on the type of search you are performing.
+
+=== PolicyMap::Client.query_search(<search_options>)
+
+A +:search+ type of search is a free form query that *returns an array of hashes (with symbolized keys)* each containing the 
+boundary id of each match.
+
+Required search options:
+
+  :query => "some sort of search string (eg, a city name: 'miami')"
+  :boundary_types => [:city, :zip]   # Array or single boundary type
+  
+Required search options for *some* boundary types:
+  
+  :state => "CA"   # state abbreviation
+  :county => "Miami Dade"
+  :census_tract => 35525   # Numeric representing a census tract
+  
+Optional search options:
+
+  :max => 25   # Max number of results in the resultset
+
+=== PolicyMap::Client.boundary_search(<search_options>)
+
+A +:boundary+ search *returns a hash (with symbolized keys)* containing a MultiPolygon.
+
+Required search options:
+
+  :boundary_types => [:city, :zip, :state]   # Can only specify 0 or 1 boundary type 
+                                             # if boundary IDs (below) are also specified
+  
+Other search options:
+
+  :boundary_ids => [1024944, 1024989]   # Array of boundary IDs
+  :lat => 33.805094   # Only to be used if boundary_ids (above) is not specified
+  :lng => -118.353717
+
+=== PolicyMap::Client.indicator_search(<search_options>)
+
+An +:indicator+ type of search *returns a hash (with symbolized keys)* containing indicator data for the specified boundaries.
+  
+Required search options:
+
+  :boundary_types => [:city, :zip, :state]   # Can only specify 0 or 1 boundary type 
+                                             # if boundary IDs (below) are also specified
+  :indicators => [:total_population, :percent_asian]
+  
+Other search options:
+
+  :boundary_ids => [1024944, 1024989]   # Array of boundary IDs
+  :lat => 33.805094   # Only to be used if boundary_ids (above) is not specified
+  :lng => -118.353717
+
+=== Available Boundary Types
+
+  :state
+  :county
+  :city
+  :zip
+  :census_tract 
+  :block_group
+  :congressional_district
+  :assembly_district
+  :senate_district
+  :all   # includes all boundary types
+
+=== Available Indicators
+
+Population
+
+  :total_population
+  :percent_african_american
+  :percent_asian
+  :percent_pacific_islander
+  :percent_hispanic
+  :percent_native_american
+  :percent_mixed_race
+  :percent_under_18
+  :percent_65_or_older
+  :percent_foreign_born
+  :percent_disabled
+  
+Education
+
+  :percent_high_school_or_less
+  :percent_college_degree
+  :percent_graduate_degree
+  
+Housing
+  
+  :median_home_value
+  :median_rent
+  :percent_moved_in_since_1990
+  :percent_homeowners
+  :vacancy_rate
+  
+Income
+
+  :median_household_income
+  :poverty_rate
+  :percent_households_wo_car
+  :average_vehicles_per_household
+  :percent_who_commute_to_work_using_public_transit
+  :unemployment_rate
+  
+Industry Concentrations
+  
+  :independent_artists
+  :performing_arts_and_spectator_sports
+  :movie_and_sound_industries
+  :mueseums_and_historical_sites
+  :publishing_industries
+  :broadcasting
+  :other_info_services
+  
+Other
+
+  :all   # includes all indicators
+
+== Dependencies
+
+PolicyMap Wrap stands on the shoulders of giants:
+
+* {yajl-ruby}[http://github.com/brianmario/yajl-ruby] (Ruby wrapper around the great {yajl}[http://lloyd.github.com/yajl])
+* {curb}[http://github.com/taf2/curb] (Ruby wrapper around the great {libcurl}[http://curl.haxx.se/])
 
 == Copyright
 
-Copyright (c) 2010 Mauricio Gomes. See LICENSE for details.
+Copyright (c) 2010 Gemini SBS. See LICENSE for details.
+
+== Authors
+
+* {Mauricio Gomes}[http://github.com/mgomes]

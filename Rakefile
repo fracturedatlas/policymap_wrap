@@ -5,13 +5,18 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "policymap_wrap"
-    gem.summary = %Q{TODO: one-line summary of your gem}
-    gem.description = %Q{TODO: longer description of your gem}
-    gem.email = "mauricio@edge14.com"
-    gem.homepage = "http://github.com/mgomes/policymap_wrap"
+    gem.summary = %Q{Ruby wrapper around the PolicyMap API}
+    gem.description = %Q{Ruby wrapper around the PolicyMap API. Your API may vary.}
+    gem.email = "mauricio@geminisbs.com"
+    gem.homepage = "http://github.com/geminisbs/policymap_wrap"
     gem.authors = ["Mauricio Gomes"]
+    
+    gem.add_dependency "yajl-ruby", ">= 0.7.7"
+    gem.add_dependency "curb", ">= 0.7.7.1"
+    
     gem.add_development_dependency "rspec", ">= 1.2.9"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
+    
+    gem.files = FileList['lib/**/*.rb', 'VERSION', 'LICENSE', "README.rdoc"]
   end
   Jeweler::GemcutterTasks.new
 rescue LoadError
