@@ -25,9 +25,9 @@ module PolicyMap
 
     class << self
 
-      def set_credentials(client_id)
+      def set_credentials(client_id, username, password)
         @@default_options = { :id => client_id, :ty => 'data', :f => 'j' }
-        @@connection = Connection.new(client_id)
+        @@connection = Connection.new(client_id, username, password)
         @@connection.debug = @@debug
         true
       end

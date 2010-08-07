@@ -5,8 +5,10 @@ module PolicyMap
     attr_accessor :debug
     attr_reader :client_id
 
-    def initialize(client_id)
+    def initialize(client_id, username, password)
       @client_id = client_id
+      @username = username
+      @password = password
       @debug = false
     end
 
@@ -105,6 +107,9 @@ module PolicyMap
           c.headers = headers
         end
       end
+      
+      @http_client.username = @username
+      @http_client.password = @password
       
       @http_client.perform
       

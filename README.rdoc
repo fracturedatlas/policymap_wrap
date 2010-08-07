@@ -1,6 +1,6 @@
 = PolicyMap Wrap
 
-Ruby wrapper around the PolicyMap API.
+Ruby wrapper around the PolicyMap API. Uses the YAJL library for fast JSON decoding.
 
 == Notes
  
@@ -10,7 +10,7 @@ PolicyMap APIs are custom designed, so your mileage may vary depending on your A
 
 Before you can perform searches, you must first setup your PolicyMap credentials:
 
-  PolicyMap::Client.set_credentials(<account_id>)
+  PolicyMap::Client.set_credentials(<account_id>, <username>, <password>)
   
 There are three types of searches: query, boundary and indicator.
 Each search is performed as follows, respectively:

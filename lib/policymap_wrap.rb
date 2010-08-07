@@ -8,7 +8,7 @@ require 'policymap_wrap/hash_utils'
 require 'policymap_wrap/client'
 
 module PolicyMap
-  REALM = "http://staging.www.policymap.com"
+  REALM = "http://www.policymap.com"
   VERSION = File.read(File.join(File.dirname(__FILE__), '..', 'VERSION'))
   
   class PolicyMapError < StandardError; end
