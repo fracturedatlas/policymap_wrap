@@ -40,6 +40,14 @@ module PolicyMap
       def debug
         @@debug
       end
+      
+      def boundary_types
+        BOUNDARY_TYPES
+      end
+      
+      def indicators
+        INDICATORS
+      end
 
       def query_search(*args)
         default_options = @@default_options
