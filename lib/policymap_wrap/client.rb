@@ -109,6 +109,25 @@ module PolicyMap
         @@connection.get endpoint, data
       end
       
+      def containment_search(*args)
+        default_options = @@default_options
+        default_options[:t] = "cnt"
+        
+        options = extract_options!(args)
+        
+        raise InsufficientArgsForSearch unless options.has_key?(:boundary_types) && options.has_key?(:boundary_id)
+        
+        options[:boundary_types] = Array(options[:boundary_types]).collect {|bt| BOUNDARY_TYPES[bt] }.join(',')
+        HashUtils.rename_key!(options, :boundary_types, :ct)
+        HashUtils.rename_key!(options, :boundary_id, :bi)
+        
+        
+        options = default_options.merge(options)
+        
+        result = get(Endpoint.endpoint_url, options)
+        result['cnt'].collect {|hsh| HashUtils.symbolize_keys(hsh) }
+      end
+      
     private
     
       def extract_options!(args)

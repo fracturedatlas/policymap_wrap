@@ -72,6 +72,16 @@ Other search options:
   :lat => 33.805094   # Only to be used if boundary_ids (above) is not specified
   :lng => -118.353717
 
+=== PolicyMap::Client.containment_search(<search_options>)
+
+A +:containment+ type of search *returns a hash (with symbolized keys)* containing boundary IDs for each of the boundary types contained by the specified boundary ID. 
+For example, if the boundary ID is for Alameda County, specifying :city as the boundary_types will reveal all cities within Alameda county.
+
+Required search options:
+
+  :boundary_types => [:city, :zip, :state]   # Can be a single boundary type, an array, or :all
+  :boundary_id => 590932   # The ID of the boundary to use as the "container"
+
 === Available Boundary Types
 
   :state
