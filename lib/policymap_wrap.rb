@@ -1,5 +1,5 @@
 require 'uri'
-require 'yajl/json_gem'
+require 'yajl'
 require 'curb'
 
 require 'policymap_wrap/connection'

@@ -85,8 +85,8 @@ module PolicyMap
         content = nil
       else
         begin
-          content = JSON.parse(response.body)
-        rescue JSON::ParserError
+          content = Yajl::Parser.new.parse(response.body)
+        rescue Yajl::ParseError
           raise DecodeError, "content: <#{response.body}>"
         end
       end
