@@ -133,7 +133,7 @@ module PolicyMap
         options = default_options.merge(options)
         
         result = get(Endpoint.endpoint_url, options)
-        result['cnt'].collect {|hsh| HashUtils.symbolize_keys(hsh) }
+        result['cnt'].first
       end
       
     private

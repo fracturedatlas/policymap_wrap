@@ -74,7 +74,7 @@ Other search options:
 
 === PolicyMap::Client.containment_search(<search_options>)
 
-A +:containment+ type of search *returns a hash (with symbolized keys)* containing boundary IDs for each of the boundary types contained by the specified boundary ID. 
+A +:containment+ type of search *returns an array of hashes* containing boundary IDs for each of the boundary types contained by the specified boundary ID. 
 For example, if the boundary ID is for Alameda County, specifying :city as the boundary_types will reveal all cities within Alameda county.
 
 Required search options:
