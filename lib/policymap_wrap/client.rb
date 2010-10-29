@@ -26,7 +26,7 @@ module PolicyMap
     class << self
 
       def set_credentials(client_id, username, password)
-        @@default_options = { :id => client_id, :ty => 'data', :f => 'j' }
+        @@default_options = { :id => client_id, :ty => 'data', :f => 'j', :af => '1' }
         @@connection = Connection.new(client_id, username, password)
         @@connection.debug = @@debug
         true
@@ -111,11 +111,6 @@ module PolicyMap
         result = get(Endpoint.endpoint_url, options)
         HashUtils.recursively_symbolize_keys(result["ind"])
       end
-
-      def get(endpoint, data=nil)
-        raise NoConnectionEstablished  if @@connection.nil?
-        @@connection.get endpoint, data
-      end
       
       def containment_search(*args)
         default_options = @@default_options
@@ -134,6 +129,11 @@ module PolicyMap
         
         result = get(Endpoint.endpoint_url, options)
         result['cnt'].first
+      end
+
+      def get(endpoint, data=nil)
+        raise NoConnectionEstablished  if @@connection.nil?
+        @@connection.get endpoint, data
       end
       
     private
