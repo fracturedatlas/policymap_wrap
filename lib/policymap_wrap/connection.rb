@@ -108,8 +108,7 @@ module PolicyMap
         end
       end
       
-      @http_client.username = @username
-      @http_client.password = @password
+      @http_client.userpwd = [@username, @password].join(':')
       
       @http_client.perform
       
