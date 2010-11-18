@@ -121,7 +121,7 @@ module PolicyMap
         raise InsufficientArgsForSearch unless options.has_key?(:boundary_types) && options.has_key?(:boundary_id)
         
         options[:boundary_types] = Array(options[:boundary_types]).collect {|bt| BOUNDARY_TYPES[bt] }.join(',')
-        HashUtils.rename_key!(options, :boundary_types, :ct)
+        HashUtils.rename_key!(options, :boundary_types, :cbt)
         HashUtils.rename_key!(options, :boundary_id, :bi)
         
         
