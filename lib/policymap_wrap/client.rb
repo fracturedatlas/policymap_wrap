@@ -13,7 +13,7 @@ module PolicyMap
                    :percent_college_degree => 9840342, :percent_graduate_degree => 9840503, :median_home_value => 9840587,
                    :median_rent => 9840655, :percent_moved_in_since_1990 => 9840118, :percent_homeowners => 9840172,
                    :vacancy_rate => 9840676, :median_household_income => 9840169, :poverty_rate => 9840120,
-                   :percent_households_wo_car => 0, :average_vehicles_per_household => 9845668,
+                   :percent_white => 9855425, :percent_households_wo_car => 0, :average_vehicles_per_household => 9845668,
                    :percent_who_commute_to_work_using_public_transit => 9845660, :unemployment_rate => 9841103,
                    :independent_artists => 9618303, :performing_arts_and_spectator_sports => 9584608, 
                    :movie_and_sound_industries => 9584731, :mueseums_and_historical_sites => 9584676,
