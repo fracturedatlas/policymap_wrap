@@ -6,7 +6,7 @@ module PolicyMap
                        :block_group => 15, :congressional_district => 23, :assembly_district => 48, 
                        :senate_district => 49, :all => 'all' }
                        
-    INDICATORS = { :total_population => 9840661, :percent_african_american => 9867377, :percent_asian => 9867350, 
+    INDICATORS = { :total_population => 9867358, :percent_african_american => 9867377, :percent_asian => 9867350, 
                    :percent_pacific_islander => 9867412, :percent_hispanic => 9867375, :percent_native_american => 9867399,
                    :percent_mixed_race => 9867372, :percent_under_18 => 9840423, :percent_65_or_older => 9840365,
                    :percent_foreign_born => 9866147, :percent_disabled => 9840630, :percent_high_school_or_less => 9866114,
