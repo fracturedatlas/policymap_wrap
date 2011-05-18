@@ -8,8 +8,8 @@ module PolicyMap
                        
     INDICATORS = { :total_population => 9867358, :percent_african_american => 9867377, :percent_asian => 9867350, 
                    :percent_pacific_islander => 9867412, :percent_hispanic => 9867375, :percent_native_american => 9867399,
-                   :percent_mixed_race => 9867372, :percent_under_18 => 9840423, :percent_65_or_older => 9840365,
-                   :percent_foreign_born => 9866147, :percent_disabled => 9840630, :percent_high_school_or_less => 9866114,
+                   :percent_mixed_race => 9867372, :percent_under_18 => 9869063, :percent_65_or_older => 9869059,
+                   :percent_foreign_born => 9869060, :percent_disabled => 9869050, :percent_high_school_or_less => 9866114,
                    :percent_college_degree => 9866138, :percent_graduate_degree => 9866149, :median_home_value => 9840587,
                    :median_rent => 9840655, :percent_moved_in_since_1990 => 9840118, :percent_homeowners => 9866140,
                    :vacancy_rate => 9867379, :median_household_income => 9866139, :poverty_rate => 9840120,
