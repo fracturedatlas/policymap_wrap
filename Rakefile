@@ -10,12 +10,12 @@ begin
     gem.email = "mauricio@geminisbs.com"
     gem.homepage = "http://github.com/geminisbs/policymap_wrap"
     gem.authors = ["Mauricio Gomes"]
-    
+
     gem.add_dependency "yajl-ruby", ">= 0.7.7"
-    gem.add_dependency "curb", ">= 0.7.7.1"
-    
+    gem.add_dependency "rest-client", "~> 1.6.7"
+
     gem.add_development_dependency "rspec", ">= 1.2.9"
-    
+
     gem.files = FileList['lib/**/*.rb', 'VERSION', 'LICENSE', "README.rdoc"]
   end
   Jeweler::GemcutterTasks.new

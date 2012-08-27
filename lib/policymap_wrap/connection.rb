@@ -17,11 +17,7 @@ module PolicyMap
       request :get, endpoint, data
     end
 
-    class Response
-
-      attr_reader :code, :header, :body, :message
-
-      HTTP_RESPONSES = { '100' => 'Continue', '101' => 'SwitchProtocol', '200' => 'OK', '201' => 'Created', '202' => 'Accepted', '203' => 'NonAuthoritativeInformation',
+    HTTP_RESPONSES = { '100' => 'Continue', '101' => 'SwitchProtocol', '200' => 'OK', '201' => 'Created', '202' => 'Accepted', '203' => 'NonAuthoritativeInformation',
                          '204' => 'NoContent', '205' => 'ResetContent', '206' => 'PartialContent', '300' => 'MultipleChoice', '301' => 'MovedPermanently',
                          '302' => 'Found', '303' => 'SeeOther', '304' => 'NotModified', '305' => 'UseProxy', '307' => 'TemporaryRedirect', '400' => 'BadRequest',
                          '401' => 'Unauthorized', '402' => 'PaymentRequired', '403' => 'Forbidden', '404' => 'NotFound', '405' => 'MethodNotAllowed',
@@ -29,27 +25,6 @@ module PolicyMap
                          '411' => 'LengthRequired', '412' => 'PreconditionFailed', '413' => 'RequestEntityTooLarge', '414' => 'RequestURITooLong',
                          '415' => 'UnsupportedMediaType', '416' => 'RequestedRangeNotSatisfiable', '417' => 'ExpectationFailed', '500' => 'InternalServerError',
                          '501' => 'NotImplemented', '502' => 'BadGateway', '503' => 'ServiceUnavailable', '504' => 'GatewayTimeOut', '505' => 'VersionNotSupported' }
-
-      def initialize(http_client)
-        @code = http_client.response_code
-        @header = http_client.header_str.is_a?(String) ? parse_headers(http_client.header_str) : http_client.header_str
-        @body = http_client.body_str
-        @message = HTTP_RESPONSES[@code.to_s]
-      end
-
-    private
-
-      def parse_headers(header_string)
-        header_lines = header_string.split($/)
-        header_lines.shift
-        header_lines.inject({}) do |hsh, line|
-          whole_enchillada, key, value = /^(.*?):\s*(.*)$/.match(line.chomp).to_a
-          hsh[key] = value unless whole_enchillada.nil?
-          hsh
-        end
-      end
-
-    end
 
   private
 
@@ -68,7 +43,7 @@ module PolicyMap
         end
       end
 
-      response = send_request(method, endpoint, headers)
+      response = send_request(method, endpoint, headers, data)
 
       if debug
         puts "\nresponse: #{response.code}"
@@ -102,23 +77,23 @@ module PolicyMap
       end.join('&')
     end
 
-    def send_request(method, endpoint, headers)
-      if method == :get
-        @http_client = Curl::Easy.new(endpoint) do |c|
-          c.headers = headers
-        end
+    def send_request(method, endpoint, headers, data)
+      RestClient.proxy = @proxy_url unless @proxy_url.nil?
+      begin
+        response = RestClient::Request.execute(:method => method,
+                                               :url => endpoint,
+                                               :headers => headers,
+                                               :user => @username,
+                                               :password => @password)
+      rescue => e
+        raise_errors(e.response)
       end
 
-      @http_client.userpwd = [@username, @password].join(':')
-      @http_client.proxy_url = @proxy_url unless @proxy_url.nil?
-
-      @http_client.perform
-
-      Response.new(@http_client)
+      response
     end
 
     def raise_errors(response)
-      response_description = "(#{response.code}): #{response.message}"
+      response_description = "(#{response.code}): #{HTTP_RESPONSES[response.code.to_s]}"
       response_description += " - #{response.body}" unless response.body.empty?
 
       case response.code.to_i
