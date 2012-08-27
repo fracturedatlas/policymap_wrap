@@ -25,9 +25,9 @@ module PolicyMap
 
     class << self
 
-      def set_credentials(client_id, username, password)
+      def set_credentials(client_id, username, password, proxy_url=nil)
         @@default_options = { :id => client_id, :ty => 'data', :f => 'j', :af => '1' }
-        @@connection = Connection.new(client_id, username, password)
+        @@connection = Connection.new(client_id, username, password, proxy_url)
         @@connection.debug = @@debug
         true
       end

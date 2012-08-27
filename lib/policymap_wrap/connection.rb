@@ -1,43 +1,44 @@
 module PolicyMap
-  
+
   class Connection
 
     attr_accessor :debug
     attr_reader :client_id
 
-    def initialize(client_id, username, password)
+    def initialize(client_id, username, password, proxy_url)
       @client_id = client_id
       @username = username
       @password = password
+      @proxy_url = proxy_url
       @debug = false
     end
 
     def get(endpoint, data=nil)
       request :get, endpoint, data
     end
-    
+
     class Response
-      
+
       attr_reader :code, :header, :body, :message
-      
-      HTTP_RESPONSES = { '100' => 'Continue', '101' => 'SwitchProtocol', '200' => 'OK', '201' => 'Created', '202' => 'Accepted', '203' => 'NonAuthoritativeInformation', 
-                         '204' => 'NoContent', '205' => 'ResetContent', '206' => 'PartialContent', '300' => 'MultipleChoice', '301' => 'MovedPermanently', 
-                         '302' => 'Found', '303' => 'SeeOther', '304' => 'NotModified', '305' => 'UseProxy', '307' => 'TemporaryRedirect', '400' => 'BadRequest', 
-                         '401' => 'Unauthorized', '402' => 'PaymentRequired', '403' => 'Forbidden', '404' => 'NotFound', '405' => 'MethodNotAllowed', 
-                         '406' => 'NotAcceptable', '407' => 'ProxyAuthenticationRequired', '408' => 'RequestTimeOut', '409' => 'Conflict', '410' => 'Gone', 
-                         '411' => 'LengthRequired', '412' => 'PreconditionFailed', '413' => 'RequestEntityTooLarge', '414' => 'RequestURITooLong', 
-                         '415' => 'UnsupportedMediaType', '416' => 'RequestedRangeNotSatisfiable', '417' => 'ExpectationFailed', '500' => 'InternalServerError', 
+
+      HTTP_RESPONSES = { '100' => 'Continue', '101' => 'SwitchProtocol', '200' => 'OK', '201' => 'Created', '202' => 'Accepted', '203' => 'NonAuthoritativeInformation',
+                         '204' => 'NoContent', '205' => 'ResetContent', '206' => 'PartialContent', '300' => 'MultipleChoice', '301' => 'MovedPermanently',
+                         '302' => 'Found', '303' => 'SeeOther', '304' => 'NotModified', '305' => 'UseProxy', '307' => 'TemporaryRedirect', '400' => 'BadRequest',
+                         '401' => 'Unauthorized', '402' => 'PaymentRequired', '403' => 'Forbidden', '404' => 'NotFound', '405' => 'MethodNotAllowed',
+                         '406' => 'NotAcceptable', '407' => 'ProxyAuthenticationRequired', '408' => 'RequestTimeOut', '409' => 'Conflict', '410' => 'Gone',
+                         '411' => 'LengthRequired', '412' => 'PreconditionFailed', '413' => 'RequestEntityTooLarge', '414' => 'RequestURITooLong',
+                         '415' => 'UnsupportedMediaType', '416' => 'RequestedRangeNotSatisfiable', '417' => 'ExpectationFailed', '500' => 'InternalServerError',
                          '501' => 'NotImplemented', '502' => 'BadGateway', '503' => 'ServiceUnavailable', '504' => 'GatewayTimeOut', '505' => 'VersionNotSupported' }
-      
+
       def initialize(http_client)
         @code = http_client.response_code
         @header = http_client.header_str.is_a?(String) ? parse_headers(http_client.header_str) : http_client.header_str
         @body = http_client.body_str
         @message = HTTP_RESPONSES[@code.to_s]
       end
-      
+
     private
-    
+
       def parse_headers(header_string)
         header_lines = header_string.split($/)
         header_lines.shift
@@ -47,7 +48,7 @@ module PolicyMap
           hsh
         end
       end
-      
+
     end
 
   private
@@ -100,18 +101,19 @@ module PolicyMap
         [key.to_s, URI.escape(value.to_s)].join('=')
       end.join('&')
     end
-    
+
     def send_request(method, endpoint, headers)
       if method == :get
         @http_client = Curl::Easy.new(endpoint) do |c|
           c.headers = headers
         end
       end
-      
+
       @http_client.userpwd = [@username, @password].join(':')
-      
+      @http_client.proxy_url = @proxy_url unless @proxy_url.nil?
+
       @http_client.perform
-      
+
       Response.new(@http_client)
     end
 
@@ -134,7 +136,7 @@ module PolicyMap
           end
       end
     end
-      
+
   end
-  
+
 end
