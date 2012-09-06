@@ -1,6 +1,6 @@
 require 'uri'
 require 'yajl'
-require 'curb'
+require 'rest_client'
 
 require 'policymap_wrap/connection'
 require 'policymap_wrap/endpoint'
@@ -10,7 +10,7 @@ require 'policymap_wrap/client'
 module PolicyMap
   REALM = "http://www.policymap.com"
   VERSION = File.read(File.join(File.dirname(__FILE__), '..', 'VERSION'))
-  
+
   class PolicyMapError < StandardError; end
   class InsufficientArgsForSearch < PolicyMapError; end
   class Unauthorized < PolicyMapError; end
