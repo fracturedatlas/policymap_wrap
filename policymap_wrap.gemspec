@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "policymap_wrap"
-  s.version = "0.7.0"
+  s.version = "0.7.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Mauricio Gomes"]
-  s.date = "2012-09-06"
+  s.date = "2012-11-15"
   s.description = "Ruby wrapper around the PolicyMap API. Your API may vary."
   s.email = "mauricio@geminisbs.com"
   s.extra_rdoc_files = [
