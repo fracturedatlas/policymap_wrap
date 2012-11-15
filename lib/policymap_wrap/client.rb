@@ -3,8 +3,8 @@ module PolicyMap
   class Client
 
     BOUNDARY_TYPES = { :state => 2, :county => 4, :city => 16, :zip => 8, :census_tract => 6,
-                       :block_group => 15, :congressional_district => 23, :assembly_district => 48,
-                       :senate_district => 49, :all => 'all' }
+                       :block_group => 15, :congressional_district => 23, :assembly_district => 49,
+                       :senate_district => 48, :all => 'all' }
 
     INDICATORS = { :total_population => 9876598, :percent_african_american => 9876222, :percent_asian => 9876202,
                    :percent_pacific_islander => 9876468, :percent_hispanic => 9876280, :percent_native_american => 9876623,
