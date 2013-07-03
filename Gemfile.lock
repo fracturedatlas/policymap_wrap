@@ -1,0 +1,20 @@
+PATH
+  remote: .
+  specs:
+    policymap_wrap (1.0.0)
+      rest-client (~> 1.6)
+      yajl-ruby (~> 1.1.0)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    mime-types (1.23)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
+    yajl-ruby (1.1.0)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  policymap_wrap!
