@@ -5,9 +5,9 @@ module PolicyMap
     class << self
 
       def endpoint_url
-        [REALM, 's/'].join('/')
+        [REALM, 'd/'].join('/')
       end
-      
+
     end
 
   end
