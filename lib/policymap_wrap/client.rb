@@ -2,10 +2,6 @@ module PolicyMap
 
   class Client
 
-    BOUNDARY_TYPES = { :state => 2, :county => 4, :city => 16, :zip => 8, :census_tract => 6,
-                       :block_group => 15, :congressional_district => 23, :assembly_district => 49,
-                       :senate_district => 48, :all => 'all' }
-
     INDICATORS = { :total_population => 9876598, :percent_african_american => 9876222, :percent_asian => 9876202,
                    :percent_pacific_islander => 9876468, :percent_hispanic => 9876280, :percent_native_american => 9876623,
                    :percent_mixed_race => 9876437, :percent_under_18 => 9869063, :percent_65_or_older => 9869059,
@@ -18,6 +14,16 @@ module PolicyMap
                    :independent_artists => 9618303, :performing_arts_and_spectator_sports => 9584608,
                    :movie_and_sound_industries => 9584731, :mueseums_and_historical_sites => 9584676,
                    :publishing_industries => 9584638, :broadcasting => 9584691, :other_info_services => 9584624, :all => 'all' }
+    BOUNDARY_TYPES = {:state                  => 2,
+                      :county                 => 4,
+                      :census_tract           => 6,
+                      :zip                    => 8,
+                      :block_group            => 15,
+                      :city                   => 16,
+                      :congressional_district => 23,
+                      :assembly_district      => 49,
+                      :senate_district        => 48}
+
 
     @@connection = nil
     @@debug = false
@@ -57,7 +63,7 @@ module PolicyMap
 
         raise InsufficientArgsForSearch unless options.has_key?(:boundary_types) && options.has_key?(:query)
 
-        options[:boundary_types] = Array(options[:boundary_types]).collect {|bt| BOUNDARY_TYPES[bt] }.join(',')
+        options[:boundary_types] = sanitized_boundary_types(options[:boundary_types])
         HashUtils.rename_key!(options, :boundary_types, :bt)
         HashUtils.rename_key!(options, :query, :s)
         HashUtils.rename_key!(options, :state, :st) if options.has_key?(:state)
@@ -78,7 +84,7 @@ module PolicyMap
 
         raise InsufficientArgsForSearch unless options.has_key?(:boundary_types) || options.has_key?(:boundary_ids)
 
-        options[:boundary_types] = Array(options[:boundary_types]).collect {|bt| BOUNDARY_TYPES[bt] }.join(',') if options.has_key?(:boundary_types)
+        options[:boundary_types] = sanitized_boundary_types(options[:boundary_types])
         options[:boundary_ids] = Array(options[:boundary_ids]).join(',') if options.has_key?(:boundary_ids)
         HashUtils.rename_key!(options, :boundary_types, :bt) if options.has_key?(:boundary_types)
         HashUtils.rename_key!(options, :boundary_ids, :bi) if options.has_key?(:boundary_ids)
@@ -99,7 +105,7 @@ module PolicyMap
         raise InsufficientArgsForSearch unless options.has_key?(:indicators) && (options.has_key?(:boundary_types) || options.has_key?(:boundary_ids))
 
         options[:indicators] = Array(options[:indicators]).collect {|i| INDICATORS[i] }.join(',')
-        options[:boundary_types] = Array(options[:boundary_types]).collect {|bt| BOUNDARY_TYPES[bt] }.join(',') if options.has_key?(:boundary_types)
+        options[:boundary_types] = sanitized_boundary_types(options[:boundary_types])
         options[:boundary_ids] = Array(options[:boundary_ids]).join(',') if options.has_key?(:boundary_ids)
         HashUtils.rename_key!(options, :indicators, :ii)
         HashUtils.rename_key!(options, :boundary_types, :bt) if options.has_key?(:boundary_types)
@@ -120,7 +126,7 @@ module PolicyMap
 
         raise InsufficientArgsForSearch unless options.has_key?(:boundary_types) && options.has_key?(:boundary_id)
 
-        options[:boundary_types] = Array(options[:boundary_types]).collect {|bt| BOUNDARY_TYPES[bt] }.join(',')
+        options[:boundary_types] = sanitized_boundary_types(options[:boundary_types])
         HashUtils.rename_key!(options, :boundary_types, :cbt)
         HashUtils.rename_key!(options, :boundary_id, :bi)
 
@@ -144,6 +150,15 @@ module PolicyMap
         else
           return {}
         end
+      end
+
+      def sanitized_boundary_types(types)
+        # Convert :all to an array of all types
+        types = Array(types)
+        types = BOUNDARY_TYPES.keys if types && :all == types.first.to_sym
+
+        # Convert symbols to a list of numbers
+        types.map { |bt| BOUNDARY_TYPES[bt] }.join(',')
       end
 
     end
