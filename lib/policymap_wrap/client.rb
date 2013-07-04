@@ -131,7 +131,7 @@ module PolicyMap
 
         raise InsufficientArgsForSearch unless options.has_key?(:indicators) && (options.has_key?(:boundary_types) || options.has_key?(:boundary_ids))
 
-        options[:indicators] = Array(options[:indicators]).collect {|i| INDICATORS[i] }.join(',')
+        options[:indicators] = sanitized_indicators(options[:indicators])
         options[:boundary_types] = sanitized_boundary_types(options[:boundary_types])
         options[:boundary_ids] = Array(options[:boundary_ids]).join(',') if options.has_key?(:boundary_ids)
         HashUtils.rename_key!(options, :indicators, :ii)
@@ -186,6 +186,15 @@ module PolicyMap
 
         # Convert symbols to a list of numbers
         types.map { |bt| BOUNDARY_TYPES[bt] }.join(',')
+      end
+
+      def sanitized_indicators(indicators)
+        # Convert :all to an array of all types
+        indicators = Array(indicators)
+        indicators = INDICATORS.keys if indicators && :all == indicators.first.to_sym
+
+        # Convert symbols to a list of numbers
+        indicators.map { |i| INDICATORS[i] }.join(',')
       end
 
     end
