@@ -100,7 +100,7 @@ module PolicyMap
         options = default_options.merge(options)
 
         result = get(Endpoint.endpoint_url, options)
-        result['sch'].collect {|hsh| HashUtils.symbolize_keys(hsh) }
+        result['sch']
       end
 
       def boundary_search(*args)
@@ -120,7 +120,7 @@ module PolicyMap
         options = default_options.merge(options)
 
         result = get(Endpoint.endpoint_url, options)
-        HashUtils.recursively_symbolize_keys(result["bnd"])
+        result["bnd"]
       end
 
       def indicator_search(*args)
@@ -142,7 +142,7 @@ module PolicyMap
         options = default_options.merge(options)
 
         result = get(Endpoint.endpoint_url, options)
-        HashUtils.recursively_symbolize_keys(result["ind"])
+        result["ind"]
       end
 
       def containment_search(*args)
