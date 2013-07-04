@@ -147,7 +147,8 @@ module PolicyMap
 
       def containment_search(*args)
         default_options = @@default_options
-        default_options[:t] = "cnt"
+        default_options[:t]  = 'bnd'
+        default_options[:md] = 1
 
         options = extract_options!(args)
 
@@ -161,7 +162,7 @@ module PolicyMap
         options = default_options.merge(options)
 
         result = get(Endpoint.endpoint_url, options)
-        result['cnt'].first
+        result['bnd']
       end
 
       def get(endpoint, data=nil)
