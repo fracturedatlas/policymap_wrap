@@ -21,7 +21,7 @@ module PolicyMap
       :homeownership_rate                                            => 9873049,
       :housing_units                                                 => 9876598,
       :independent_artists                                           => 9618303,
-      :median_gross_rent                                             => 9873661,
+      :median_gross_rent_2000                                        => 9873661,
       :median_gross_rent                                             => 9873663,
       :median_home_value                                             => 9873606,
       :median_household_income                                       => 9871831,
