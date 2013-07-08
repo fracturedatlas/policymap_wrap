@@ -10,8 +10,8 @@ module PolicyMap
       :block_group            => 15,
       :city                   => 16,
       :congressional_district => 23,
-      :assembly_district      => 49,
-      :senate_district        => 48
+      :assembly_district      => 25,
+      :senate_district        => 24
     }.freeze
 
     INDICATORS = {
