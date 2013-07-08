@@ -55,6 +55,7 @@ module PolicyMap
     @@connection = nil
     @@debug = false
     @@default_options = nil
+    @@boundary_types_by_id = nil
 
     class << self
 
@@ -76,6 +77,13 @@ module PolicyMap
 
       def boundary_types
         BOUNDARY_TYPES
+      end
+
+      def boundary_types_by_id
+        return @@boundary_types_by_id if @@boundary_types_by_id
+        @@boundary_types_by_id = {}
+        BOUNDARY_TYPES.each {|bt, bt_id| @@boundary_types_by_id[bt_id] = bt }
+        @@boundary_types_by_id
       end
 
       def indicators
