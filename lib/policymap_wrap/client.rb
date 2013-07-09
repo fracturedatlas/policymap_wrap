@@ -100,10 +100,10 @@ module PolicyMap
 
         options[:boundary_types] = sanitized_boundary_types(options[:boundary_types])
         HashUtils.rename_key!(options, :boundary_types, :bt)
-        HashUtils.rename_key!(options, :query, :s)
-        HashUtils.rename_key!(options, :state, :st) if options.has_key?(:state)
-        HashUtils.rename_key!(options, :county, :co) if options.has_key?(:county)
-        HashUtils.rename_key!(options, :census_tract, :ct) if options.has_key?(:census_tract)
+        HashUtils.rename_key!(options, :query, :ss)
+        HashUtils.rename_key!(options, :state, :sst) if options.has_key?(:state)
+        HashUtils.rename_key!(options, :county, :sco) if options.has_key?(:county)
+        HashUtils.rename_key!(options, :census_tract, :sct) if options.has_key?(:census_tract)
 
         options = default_options.merge(options)
 
