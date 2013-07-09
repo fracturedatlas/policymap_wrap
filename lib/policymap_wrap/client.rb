@@ -191,7 +191,7 @@ module PolicyMap
       def sanitized_boundary_types(types)
         # Convert :all to an array of all types
         types = Array(types)
-        types = BOUNDARY_TYPES.keys if types && :all == types.first.to_sym
+        types = BOUNDARY_TYPES.keys if !types.empty? && :all == types.first.to_sym
 
         # Convert symbols to a list of numbers
         types.map { |bt| BOUNDARY_TYPES[bt] }.join(',')
@@ -200,7 +200,7 @@ module PolicyMap
       def sanitized_indicators(indicators)
         # Convert :all to an array of all types
         indicators = Array(indicators)
-        indicators = INDICATORS.keys if indicators && :all == indicators.first.to_sym
+        indicators = INDICATORS.keys if !indicators.empty? && :all == indicators.first.to_sym
 
         # Convert symbols to a list of numbers
         indicators.map { |i| INDICATORS[i] }.join(',')
