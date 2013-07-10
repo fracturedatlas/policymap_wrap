@@ -79,13 +79,6 @@ module PolicyMap
         BOUNDARY_TYPES
       end
 
-      def boundary_types_by_id
-        return @@boundary_types_by_id if @@boundary_types_by_id
-        @@boundary_types_by_id = {}
-        BOUNDARY_TYPES.each {|bt, bt_id| @@boundary_types_by_id[bt_id] = bt }
-        @@boundary_types_by_id
-      end
-
       def indicators
         INDICATORS
       end
