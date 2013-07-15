@@ -149,7 +149,6 @@ module PolicyMap
       def containment_search(*args)
         default_options = @@default_options
         default_options[:t]  = 'bnd'
-        default_options[:md] = 1
 
         options = extract_options!(args)
 
