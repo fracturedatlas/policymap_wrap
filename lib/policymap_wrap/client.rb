@@ -19,7 +19,7 @@ module PolicyMap
       :broadcasting                                     => 9584691,
       :distressed_community                             => 9629156,
       :percent_homeowners                               => 9873049,
-      :housing_units                                    => 9876598,
+      :total_population                                 => 9876593,
       :independent_artists                              => 9618303,
       :median_gross_rent                                => 9873661,
       :median_gross_rent_2009                           => 9873663,
