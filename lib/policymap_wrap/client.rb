@@ -1,4 +1,4 @@
-module PolicyMap
+  module PolicyMap
 
   class Client
 
@@ -33,7 +33,73 @@ module PolicyMap
       :percent_college_degree                           => 9873916,
       :percent_graduate_degree                          => 9873904,
       :median_household_income                          => 9871831,
-      :unemployment_rate                                => 9841103
+      :unemployment_rate                                => 9841103,
+      :percent_income_10000_14999                       => 9871925,
+      :percent_income_15000_19999                       => 9871891,
+      :percent_income_15000_24999                       => 9871888,
+      :percent_income_20000_24999                       => 9871882,      
+      :percent_income_25000_34999                       => 9871909,
+      :percent_income_35000_49999                       => 9871840,
+      :percent_income_50000_74999                       => 9871836,
+      :percent_income_75000_99999                       => 9871932,
+      :percent_income_100000_124999                     => 9871846,
+      :percent_income_125000_149999                     => 9871989,
+      :percent_income_150000_199999                     => 9871919,
+      :percent_income_150000_or_more                    => 9871880,
+      :percent_income_less_than_10000                   => 9871812,
+      :percent_income_less_than_15000                   => 9871809,
+      :percent_income_less_than_25000                   => 9871822,
+      :percent_income_less_than_50000                   => 9871946,
+      :percent_income_less_than_75000                   => 9871970,
+      :percent_income_less_than_100000                  => 9871974,
+      :percent_income_less_than_150000                  => 9871832
+    }.freeze
+
+    BASE_INDICATORS = {
+      :total_population                                 => 9869069,
+      :percent_white                                    => 9869107,
+      :percent_african                                  => 9868876,
+      :percent_asian                                    => 9868853,
+      :percent_pasific                                  => 9868902,
+      :percent_hispanic                                 => 9868944,
+      :percent_native                                   => 9869102,
+      :percent_mixed_race                               => 9868873,
+      :percent_male                                     => 9868906,
+      :percent_female                                   => 9868899,
+      :ages_18_20                                       => 9868855,
+      :ages_21_24                                       => 9869071,
+      :ages_25_34                                       => 9868907,
+      :ages_35_44                                       => 9869023,
+      :ages_45_54                                       => 9868972,
+      :ages_55_64                                       => 9869076,
+      :ages_65_or_older                                 => 9868923,
+      :percent_high_school_or_less                      => 9873913,
+      :percent_college_degree                           => 9873916,
+      :percent_graduate_degree                          => 9873904,
+      :median_household_income                          => 9871831,
+      :unemployment_rate                                => 9841103,
+    }
+
+    INCOME_INDICATORS = {
+      :percent_income_10000_14999                       => 9871925,
+      :percent_income_15000_19999                       => 9871891,
+      :percent_income_15000_24999                       => 9871888,
+      :percent_income_20000_24999                       => 9871882,      
+      :percent_income_25000_34999                       => 9871909,
+      :percent_income_35000_49999                       => 9871840,
+      :percent_income_50000_74999                       => 9871836,
+      :percent_income_75000_99999                       => 9871932,
+      :percent_income_100000_124999                     => 9871846,
+      :percent_income_125000_149999                     => 9871989,
+      :percent_income_150000_199999                     => 9871919,
+      :percent_income_150000_or_more                    => 9871880,
+      :percent_income_less_than_10000                   => 9871812,
+      :percent_income_less_than_15000                   => 9871809,
+      :percent_income_less_than_25000                   => 9871822,
+      :percent_income_less_than_50000                   => 9871946,
+      :percent_income_less_than_75000                   => 9871970,
+      :percent_income_less_than_100000                  => 9871974,
+      :percent_income_less_than_150000                  => 9871832
     }.freeze
 
     @@connection = nil
@@ -65,6 +131,14 @@ module PolicyMap
 
       def indicators
         INDICATORS
+      end
+
+      def base_indicators
+        BASE_INDICATORS
+      end
+
+      def income_indicators
+        INCOME_INDICATORS
       end
 
       def query_search(*args)
