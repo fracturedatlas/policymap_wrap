@@ -1,4 +1,4 @@
-module PolicyMap
+  module PolicyMap
 
   class Client
 
@@ -11,7 +11,7 @@ module PolicyMap
       :city                   => 16
     }.freeze
 
-    INDICATORS = {
+    BASE_INDICATORS = {
       :total_population                                 => 9869069,
       :percent_white                                    => 9869107,
       :percent_african                                  => 9868876,
@@ -33,8 +33,32 @@ module PolicyMap
       :percent_college_degree                           => 9873916,
       :percent_graduate_degree                          => 9873904,
       :median_household_income                          => 9871831,
-      :unemployment_rate                                => 9841103
+      :unemployment_rate                                => 9841103,
+    }
+
+    INCOME_INDICATORS = {
+      :percent_income_10000_14999                       => 9871925,
+      :percent_income_15000_19999                       => 9871891,
+      :percent_income_15000_24999                       => 9871888,
+      :percent_income_20000_24999                       => 9871882,      
+      :percent_income_25000_34999                       => 9871909,
+      :percent_income_35000_49999                       => 9871840,
+      :percent_income_50000_74999                       => 9871836,
+      :percent_income_75000_99999                       => 9871932,
+      :percent_income_100000_124999                     => 9871846,
+      :percent_income_125000_149999                     => 9871989,
+      :percent_income_150000_199999                     => 9871919,
+      :percent_income_150000_or_more                    => 9871880,
+      :percent_income_less_than_10000                   => 9871812,
+      :percent_income_less_than_15000                   => 9871809,
+      :percent_income_less_than_25000                   => 9871822,
+      :percent_income_less_than_50000                   => 9871946,
+      :percent_income_less_than_75000                   => 9871970,
+      :percent_income_less_than_100000                  => 9871974,
+      :percent_income_less_than_150000                  => 9871832
     }.freeze
+
+    INDICATORS = BASE_INDICATORS.merge(INCOME_INDICATORS).freeze
 
     @@connection = nil
     @@debug = false
@@ -65,6 +89,14 @@ module PolicyMap
 
       def indicators
         INDICATORS
+      end
+
+      def base_indicators
+        BASE_INDICATORS
+      end
+
+      def income_indicators
+        INCOME_INDICATORS
       end
 
       def query_search(*args)

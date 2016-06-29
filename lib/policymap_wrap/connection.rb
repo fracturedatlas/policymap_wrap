@@ -26,6 +26,8 @@ module PolicyMap
                          '415' => 'UnsupportedMediaType', '416' => 'RequestedRangeNotSatisfiable', '417' => 'ExpectationFailed', '500' => 'InternalServerError',
                          '501' => 'NotImplemented', '502' => 'BadGateway', '503' => 'ServiceUnavailable', '504' => 'GatewayTimeOut', '505' => 'VersionNotSupported' }
 
+    MAX_RETRIES = 10
+
   private
 
     def request(method, endpoint, data)
@@ -78,6 +80,7 @@ module PolicyMap
     end
 
     def send_request(method, endpoint, headers, data)
+      n = MAX_RETRIES
       RestClient.proxy = @proxy_url unless @proxy_url.nil?
       begin
         response = RestClient::Request.execute(:method => method,
@@ -86,7 +89,14 @@ module PolicyMap
                                                :user => @username,
                                                :password => @password)
       rescue => e
-        raise_errors(e.response)
+        n -= 1
+
+        if n > 0
+          puts "Retry number #{n}"
+          retry
+        else
+          raise_errors(e.response)
+        end
       end
 
       response
