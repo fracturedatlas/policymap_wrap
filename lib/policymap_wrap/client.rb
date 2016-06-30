@@ -17,10 +17,10 @@ module PolicyMap
     INDICATORS = {
       :average_vehicles_per_household                   => 9873779,
       :broadcasting                                     => 9584691,
-      :distressed_community                             => 9629156,
+      # :distressed_community                             => 9629156,
       :percent_homeowners                               => 9873049,
-      :total_population                                 => 9876593,
-      :independent_artists                              => 9618303,
+      :total_population                                 => 9869069,
+      # :independent_artists                              => 9618303,
       :median_gross_rent                                => 9873661,
       :median_gross_rent_2009                           => 9873663,
       :median_home_value                                => 9873606,
@@ -30,26 +30,26 @@ module PolicyMap
       :other_info_services                              => 9584624,
       :percent_moved_in_since_1990                      => 9873776,
       :percent_who_commute_to_work_using_public_transit => 9873811,
-      :percent_african_american                         => 9876222,
-      :percent_native_american                          => 9876623,
-      :percent_asian                                    => 9876202,
+      :percent_african_american                         => 9868876,
+      :percent_native_american                          => 9869102,
+      :percent_asian                                    => 9868853,
       :percent_foreign_born                             => 9869060,
-      :percent_hispanic                                 => 9876280,
-      :percent_pacific_islander                         => 9876468,
+      :percent_hispanic                                 => 9868944,
+      :percent_pacific_islander                         => 9868902,
       :poverty_rate                                     => 9871807,
       :percent_disabled                                 => 9869050,
       :percent_65_or_older                              => 9869059,
       :percent_under_18                                 => 9869063,
       :percent_college_degree                           => 9873916,
       :percent_high_school_or_less                      => 9873913,
-      :percent_mixed_race                               => 9876437,
+      :percent_mixed_race                               => 9868873,
       :percent_vacant_units                             => 9631221,
-      :percent_white                                    => 9876415,
+      :percent_white                                    => 9869107,
       :percent_graduate_degree                          => 9873904,
       :performing_arts_and_spectator_sports             => 9584608,
       :publishing_industries                            => 9584638,
       :unemployment_rate                                => 9841103,
-      :vacancy_rate                                     => 9876608
+      :vacancy_rate                                     => 9873799
     }.freeze
 
     @@connection = nil
@@ -60,7 +60,7 @@ module PolicyMap
     class << self
 
       def set_credentials(client_id, username, password, proxy_url=nil)
-        @@default_options = { :id => client_id, :ty => 'data', :f => 'j', :af => '1' }
+        @@default_options = { :id => client_id, :ty => 'data' }
         @@connection = Connection.new(client_id, username, password, proxy_url)
         @@connection.debug = @@debug
         true
